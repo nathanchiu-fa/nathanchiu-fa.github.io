@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<!--    <link rel="stylesheet" href="https://mdn.github.io/webextensions-examples/page-styles/styles.css" type="text/css"/>-->
+  </head>
+  <body>
+    <p>This page demonstrates messaging between page scripts and content scripts.</p>
+    <p>To try it out, first install the WebExtension from <a href="https://github.com/mdn/webextensions-examples/tree/master/page-to-extension-messaging">https://github.com/mdn/webextensions-examples/tree/master/page-to-extension-messaging</a>, then reload this page.</p>
+    <p>Clicking one button sends a message from the page script to the content script: the content script just displays an alert when it receives the message. Clicking the other button sends a message the other way.</p> 
+    
+    <input id="from-page-script" type="button" value="Send a message from the page script"></input>
+    <input id="from-content-script" type="button" value="Send a message from the content script"></input>
+    <script src="https://mdn.github.io/webextensions-examples/page-scripts/page-script-to-content-script-messaging.js"></script>
+     <script>
+var messenger = document.getElementById("from-page-script");
+
+messenger.addEventListener("click", messageContentScript);
+
+function messageContentScript() {
+  window.postMessage({
+    direction: "from-page-script",
+    message: "Message from the page"
+  }, "*");
+}
+function messageAlert() {
+  document.body.style.border = "5px solid green";
+}
+window.addEventListener("message", function(event) {
+  if (event.source == window &&
+      event.data.direction &&
+      event.data.direction == "from-content-script") {
+      messageAlert();
+
+  }
+});
+    </script>
+  </body>
+</html>
