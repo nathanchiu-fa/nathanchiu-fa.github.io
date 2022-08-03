@@ -5,7 +5,7 @@
 <!--    <link rel="stylesheet" href="https://mdn.github.io/webextensions-examples/page-styles/styles.css" type="text/css"/>-->
   </head>
   <body>
-    <p>This page demonstrates messaging between page scripts and content scripts.</p>
+    <p>1224 This page demonstrates messaging between page scripts and content scripts.</p>
     <p>To try it out, first install the WebExtension from <a href="https://github.com/mdn/webextensions-examples/tree/master/page-to-extension-messaging">https://github.com/mdn/webextensions-examples/tree/master/page-to-extension-messaging</a>, then reload this page.</p>
     <p>Clicking one button sends a message from the page script to the content script: the content script just displays an alert when it receives the message. Clicking the other button sends a message the other way.</p> 
     
@@ -25,6 +25,7 @@ function messageContentScript() {
 }
 function messageAlert() {
   document.body.style.border = "5px solid green";
+  alert("Page script received message: \"" + event.data.message + "\"");
 }
 window.addEventListener("message", function(event) {
   if (event.source == window &&
